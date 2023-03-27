@@ -1,11 +1,11 @@
 import React from "react";
-import { Link ,BrowserRouter} from "react-router-dom"
+import { Link } from "react-router-dom"
 import './Homepage.css'
 
 
 function Home(){
     return(
-        <BrowserRouter>
+        
         <div>
         <h1>PLAN YOUR TASK NOW</h1>
         <Link to="/add task">
@@ -18,7 +18,7 @@ function Home(){
             <button>update Tasks</button>
         </Link>
         </div>
-        </BrowserRouter>
+     
     )
 }
 export default Home

@@ -7,7 +7,7 @@ function AddTask({ onAddTask }) {
   const handleSubmit = event => {
     event.preventDefault();
     const newTask = { title, description };
-    fetch('http://localhost:3000/todos', {
+    fetch(`http://localhost:3000/todos${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
