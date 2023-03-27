@@ -5,13 +5,19 @@ function Signup(){
     const [username, setusername] = useState('')
     const [email,setemail] = useState('')
     const [password,setpassword] = useState('')
+
+    function handlesubmit(e){
+        e.preventDefault()
+        console.log(username,email,password)
+
+    } 
     
-    fetch(`/signup`, {
+    fetch(`http://localhost:3000/users`, {
         method: 'POST',
         headers:{
             'Content-Type': 'application/json'
         },
-   body: JSON.stringify(formData)
+   body: JSON.stringify({username ,email , password})
     })
     .then(res => res.json())
     .then(data => {

@@ -1,29 +1,27 @@
 import React, { useState } from 'react';
 
-function AddTask({ onAddTask }) {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+function UpdateTask({ task, onUpdateTask }) {
+  const [title, setTitle] = useState(task.title);
+  const [description, setDescription] = useState(task.description);
 
   const handleSubmit = event => {
     event.preventDefault();
-    const newTask = { title, description };
-    fetch('/api/tasks', {
-      method: 'POST',
+    const updatedTask = { ...task, title, description };
+    fetch(`/api/tasks/${task.id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newTask),
+      body: JSON.stringify(updatedTask),
     })
       .then(response => response.json())
-      .then(data => onAddTask(data))
+      .then(data => onUpdateTask(data))
       .catch(error => console.error(error));
-    setTitle('');
-    setDescription('');
   };
 
   return (
     <div>
-      <h2>Add Task</h2>
+      <h2>Update Task</h2>
       <form onSubmit={handleSubmit}>
         <label>
           Title:
@@ -35,10 +33,10 @@ function AddTask({ onAddTask }) {
           <textarea value={description} onChange={e => setDescription(e.target.value)} />
         </label>
         <br />
-        <button type="submit">Add Task</button>
+        <button type="submit">Update Task</button>
       </form>
     </div>
   );
 }
 
-export default AddTask;
+export default UpdateTask;

@@ -1,26 +1,54 @@
-import React,{useState, useEffect} from "react";
+import React, { useState, useEffect } from 'react';
+import Search from './Search';
 
-function List(){
-    const [list, setList] = useState([]);
+function List() {
+  const [tasks, setTasks] = useState([]);
+  const [filteredTasks, setFilteredTasks] = useState([]);
 
-    useEffect(()=>{
-        fetch("https://jsonplaceholder.typicode.com/posts")
-      .then(res=>res.json())
-      .then(data=>{
-            setList(data);
-        })
-    },[])
+  useEffect(() => {
+    fetch('/api/tasks')
+      .then(response => response.json())
+      .then(tasks => {
+        setTasks(tasks);
+        setFilteredTasks(tasks);
+      })
+      .catch(error => console.error(error));
+  }, []);
 
-    return(
-        <div>
-            <ul>
-                {list.map(item=>(
-                    <li key={item.id}>{item.title}</li>
-                ))}
-            </ul>
-        </div>
-    )
-    
+  const handleSearchResults = tasks => {
+    setFilteredTasks(tasks);
+  };
+
+  const handleDeleteTask = id => {
+    fetch(`/api/tasks/${id}`, { method: 'DELETE' })
+      .then(response => {
+        if (response.ok) {
+          setTasks(tasks.filter(task => task.id !== id));
+          setFilteredTasks(filteredTasks.filter(task => task.id !== id));
+        } else {
+          throw new Error('Failed to delete task.');
+        }
+      })
+      .catch(error => console.error(error));
+  };
+
+  const taskList = filteredTasks.map(task => (
+    <div key={task.id}>
+      <h3>{task.title}</h3>
+      <p>{task.description}</p>
+      <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
+    </div>
+  ));
+
+  return (
+    <div>
+      <h2>All Tasks</h2>
+      <Search onSearchResults={handleSearchResults} />
+      {taskList}
+    </div>
+  );
 }
 
 export default List;
+
+
