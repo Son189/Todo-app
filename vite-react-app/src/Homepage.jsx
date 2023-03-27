@@ -17,8 +17,6 @@ function Home(){
         <Link to="/update">
             <button>update Tasks</button>
         </Link>
-
-
         </div>
         </BrowserRouter>
     )

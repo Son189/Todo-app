@@ -6,7 +6,7 @@ function List() {
   const [filteredTasks, setFilteredTasks] = useState([]);
 
   useEffect(() => {
-    fetch('/api/tasks')
+    fetch('http://localhost:3000/todos')
       .then(response => response.json())
       .then(tasks => {
         setTasks(tasks);
@@ -20,7 +20,7 @@ function List() {
   };
 
   const handleDeleteTask = id => {
-    fetch(`/api/tasks/${id}`, { method: 'DELETE' })
+    fetch(`http://localhost:3000/todos${id}`, { method: 'DELETE' })
       .then(response => {
         if (response.ok) {
           setTasks(tasks.filter(task => task.id !== id));

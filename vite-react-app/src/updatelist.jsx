@@ -7,7 +7,7 @@ function UpdateTask({ task, onUpdateTask }) {
   const handleSubmit = event => {
     event.preventDefault();
     const updatedTask = { ...task, title, description };
-    fetch(`/api/tasks/${task.id}`, {
+    fetch(`http://localhost:3000/todos/:id`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

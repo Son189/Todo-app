@@ -15,7 +15,7 @@ function Login({ onLogin }) {
 
   const handleLogin = event => {
     event.preventDefault();
-    fetch('/api/login', {
+    fetch('http://localhost:3000/users/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email_or_username: emailOrUsername, password }),

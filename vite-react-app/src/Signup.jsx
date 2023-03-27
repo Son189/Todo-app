@@ -10,19 +10,18 @@ function Signup(){
         e.preventDefault()
         console.log(username,email,password)
 
+        fetch(`http://localhost:3000/users`, {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({username ,email , password})
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+        })
     } 
-    
-    fetch(`http://localhost:3000/users`, {
-        method: 'POST',
-        headers:{
-            'Content-Type': 'application/json'
-        },
-   body: JSON.stringify({username ,email , password})
-    })
-    .then(res => res.json())
-    .then(data => {
-        console.log(data);
-    })
 
     return(
         <div>
